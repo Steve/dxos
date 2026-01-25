@@ -14,6 +14,13 @@ import { ReactSurface } from './capabilities';
 import { meta } from './meta';
 import { translations } from './translations';
 
+/**
+ * Creates a CanvasBoard object.
+ * Used by the plugin's createObject metadata function.
+ */
+export const createCanvasBoard: CreateObject = (props) =>
+  Effect.sync(() => Obj.make(CanvasBoardType, props));
+
 export const ConductorPlugin = Plugin.define(meta).pipe(
   Common.Plugin.addTranslationsModule({ translations }),
   Common.Plugin.addMetadataModule({
@@ -22,7 +29,7 @@ export const ConductorPlugin = Plugin.define(meta).pipe(
       metadata: {
         icon: 'ph--infinity--regular',
         iconHue: 'sky',
-        createObject: ((props) => Effect.sync(() => Obj.make(CanvasBoardType, props))) satisfies CreateObject,
+        createObject: createCanvasBoard,
         addToCollectionOnCreate: true,
       },
     },
